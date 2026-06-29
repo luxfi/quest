@@ -1,3 +1,5 @@
+<p align="center"><img src=".github/hero.svg" alt="quest" width="880"></p>
+
 # quest
 Lux Quest app.
 
