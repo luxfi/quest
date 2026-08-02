@@ -56,8 +56,12 @@ export default function CreatePage() {
   const link = useMemo(() => {
     if (quest.stops.length === 0) return ''
     const code = encodeQuest(quest)
-    if (typeof window === 'undefined') return `/play#${code}`
-    return `${window.location.origin}/play#${code}`
+    // The base path must be carried: on a GitHub project page the app lives at
+    // /<repo>, so a link built as origin + /play points at a route that does
+    // not exist there. It is empty on a root domain, which is the common case.
+    const base = process.env.NEXT_PUBLIC_BASE_PATH || ''
+    if (typeof window === 'undefined') return `${base}/play#${code}`
+    return `${window.location.origin}${base}/play#${code}`
   }, [quest])
 
   const ready = quest.name.trim() !== '' && quest.stops.length > 0
