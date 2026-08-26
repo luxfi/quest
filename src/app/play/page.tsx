@@ -111,7 +111,7 @@ export default function PlayPage() {
 
   if (quest === null) {
     return (
-      <Box tag="main" className='mx-auto w-full max-w-2xl flex-1 px-6 py-16'>
+      <Box tag="main" className='mx-auto w-full max-w-2xl px-6 py-16'>
         <Link href='/' className='quiet'>
           ← Lux Quest
         </Link>
@@ -137,7 +137,7 @@ export default function PlayPage() {
   }
 
   return (
-    <Box tag="main" className='mx-auto w-full max-w-2xl flex-1 px-6 py-10'>
+    <Box tag="main" className='mx-auto w-full max-w-2xl px-6 py-10'>
       <Link href='/' className='quiet'>
         ← Lux Quest
       </Link>
@@ -184,7 +184,7 @@ export default function PlayPage() {
         )}
       </Box>
 
-      <Box tag="ol" className='mt-8 flex flex-col gap-3'>
+      <Box tag="ol" className='mt-8 grid grid-cols-1 gap-3'>
         {quest.stops.map((s, i) => {
           const got = found.has(i)
           const away = fix ? distance(fix, s) : null
@@ -195,7 +195,7 @@ export default function PlayPage() {
                 got ? 'border-green-500/30 bg-green-500/[0.06]' : 'border-white/10'
               }`}
             >
-              <Box className='flex items-baseline justify-between gap-3'>
+              <Box className='grid grid-flow-col auto-cols-auto items-baseline justify-between gap-3'>
                 <Box tag="span" className='text-sm tabular-nums text-white/40'>
                   {String(i + 1).padStart(2, '0')}
                 </Box>
@@ -203,7 +203,7 @@ export default function PlayPage() {
               </Box>
               <Box tag="p" className='mt-1.5 font-medium'>{got ? s.name || 'Found' : s.clue || 'No clue given'}</Box>
               {got && s.clue && <Box tag="p" className='mt-1 text-sm text-white/50'>{s.clue}</Box>}
-              <Box className='mt-2 flex items-center gap-4 text-sm'>
+              <Box className='mt-2 grid grid-flow-col auto-cols-auto items-center gap-4 text-sm'>
                 {away !== null && !got && (
                   <Box tag="span" className='tabular-nums text-white/40'>{formatDistance(away)} away</Box>
                 )}

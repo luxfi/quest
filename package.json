@@ -16,7 +16,7 @@
   "dependencies": {
     "@hanzo/auth": "2.5.5",
     "@hanzo/commerce": "7.3.8",
-    "@hanzo/ui": "^8.5.2",
+    "@hanzo/ui": "^8.6.1",
     "@luxfi/ui": "5.5.2",
     "@next/mdx": "14.1.0",
     "@splinetool/react-spline": "4.0.0",

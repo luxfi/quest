@@ -128,9 +128,9 @@ export default function QuestMap({ pins, center, onPick, className = '', height 
         {status === 'failed' && 'The map failed to load. The stops and links below all work.'}
       </Box>
       {pins.length > 0 && (
-        <Box tag="ol" className='mt-3 flex flex-col gap-2'>
+        <Box tag="ol" className='mt-3 grid grid-cols-1 gap-2'>
           {pins.map((p, i) => (
-            <Box tag="li" key={i} className='flex items-baseline gap-2 text-sm'>
+            <Box tag="li" key={i} className='grid grid-cols-[auto_minmax(0,1fr)] items-baseline gap-2 text-sm'>
               <Box tag="span" className='text-white/40 tabular-nums'>{i + 1}.</Box>
               <Box tag="a"
                 href={mapPlaceUrl(p.lat, p.lng)}

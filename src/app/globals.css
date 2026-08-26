@@ -13,8 +13,18 @@ body {
   background: var(--background);
   color: var(--foreground);
   -webkit-font-smoothing: antialiased;
-  display: flex;
-  flex-direction: column;
+  /* One row, sized 1fr, so whatever the page puts here fills the viewport.
+     This is what every <main> was asking for with `flex-1` — in grid the
+     PARENT states it once, rather than each child asking. gui's provider
+     renders `display: contents`, so main is this row's occupant. */
+  display: grid;
+  /* BOTH tracks, and the column is minmax(0, 1fr) rather than the implicit
+     `auto`. An auto column takes its MAX-CONTENT width, so a long line pushes
+     the page wider than the viewport and the whole layout overflows — measured
+     here as a 503px main inside a 420px screen. The 0 minimum is what lets a
+     track be narrower than its content and wrap instead. */
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: 1fr;
   /* Room for the home indicator so the primary action is never under it. */
   padding-bottom: env(safe-area-inset-bottom);
 }

@@ -77,14 +77,14 @@ export default function CreatePage() {
   }
 
   return (
-    <Box tag="main" className='mx-auto w-full max-w-2xl flex-1 px-6 py-10'>
+    <Box tag="main" className='mx-auto w-full max-w-2xl px-6 py-10'>
       <Link href='/' className='quiet'>
         ← Lux Quest
       </Link>
 
       <Box tag="h1" className='mt-6 text-3xl font-semibold'>Make a quest</Box>
 
-      <Box className='mt-8 flex flex-col gap-4'>
+      <Box className='mt-8 grid grid-cols-1 gap-4'>
         <Box tag="label" className='block'>
           <Box tag="span" className='mb-1.5 block text-sm text-white/60'>Name</Box>
           <input
@@ -123,7 +123,7 @@ export default function CreatePage() {
       </Box>
 
       <Box tag="section" className='mt-10'>
-        <Box className='flex items-baseline justify-between'>
+        <Box className='grid grid-flow-col auto-cols-auto items-baseline justify-between'>
           <Box tag="h2" className='text-sm uppercase tracking-widest text-white/40'>
             Stops {quest.stops.length > 0 && `· ${totalPoints(quest)} pts`}
           </Box>
@@ -138,10 +138,10 @@ export default function CreatePage() {
 
         <CoordinateEntry onAdd={addStop} disabled={quest.stops.length >= MAX_STOPS} />
 
-        <Box tag="ol" className='mt-5 flex flex-col gap-4'>
+        <Box tag="ol" className='mt-5 grid grid-cols-1 gap-4'>
           {quest.stops.map((s, i) => (
             <Box tag="li" key={i} className='rounded-xl border border-white/10 p-4'>
-              <Box className='flex items-baseline justify-between'>
+              <Box className='grid grid-flow-col auto-cols-auto items-baseline justify-between'>
                 <Box tag="span" className='text-sm font-medium text-white/50 tabular-nums'>
                   Stop {i + 1}
                 </Box>
@@ -153,7 +153,7 @@ export default function CreatePage() {
                 </button>
               </Box>
 
-              <Box className='mt-3 flex flex-col gap-3'>
+              <Box className='mt-3 grid grid-cols-1 gap-3'>
                 <input
                   className={field}
                   value={s.clue}
@@ -166,8 +166,8 @@ export default function CreatePage() {
                   onChange={(e) => editStop(i, { name: e.target.value })}
                   placeholder='Answer — revealed once they get there'
                 />
-                <Box className='flex gap-3'>
-                  <Box tag="label" className='flex-1'>
+                <Box className='grid grid-cols-2 gap-3'>
+                  <Box tag="label">
                     <Box tag="span" className='mb-1 block text-xs text-white/50'>Points</Box>
                     <input
                       type='number'
@@ -180,7 +180,7 @@ export default function CreatePage() {
                       }
                     />
                   </Box>
-                  <Box tag="label" className='flex-1'>
+                  <Box tag="label">
                     <Box tag="span" className='mb-1 block text-xs text-white/50'>Radius (m)</Box>
                     <input
                       type='number'
@@ -203,7 +203,7 @@ export default function CreatePage() {
         </Box>
       </Box>
 
-      <Box tag="label" className='mt-8 flex items-start gap-3'>
+      <Box tag="label" className='mt-8 grid grid-flow-col auto-cols-auto items-start gap-3'>
         {/* A void element has no child for Box to style through, so the one
             offset that lines this up with the first line of its label is a
             style rather than a class. */}
@@ -225,7 +225,7 @@ export default function CreatePage() {
         <Box tag="h2" className='text-sm uppercase tracking-widest text-white/40'>Share it</Box>
         {ready ? (
           <>
-            <Box className='mt-3 flex gap-2'>
+            <Box className='mt-3 grid grid-cols-[1fr_auto] gap-2'>
               <input
                 readOnly
                 value={link}
@@ -235,7 +235,7 @@ export default function CreatePage() {
               />
               <Box tag="button"
                 onClick={copy}
-                className='shrink-0 rounded-lg bg-white px-4 py-2 font-medium text-black transition hover:bg-white/90'
+                className='rounded-lg bg-white px-4 py-2 font-medium text-black transition hover:bg-white/90'
               >
                 {copied ? 'Copied' : 'Copy'}
               </Box>
@@ -294,7 +294,7 @@ function CoordinateEntry({
 
   return (
     <Box className='mt-3'>
-      <Box className='flex gap-2'>
+      <Box className='grid grid-cols-[1fr_auto] gap-2'>
         {/* The same control in a monospace face — what sits in it is a url,
             read character by character, where an l and a 1 have to differ. */}
         <input
@@ -316,7 +316,7 @@ function CoordinateEntry({
         <Box tag="button"
           onClick={submit}
           disabled={disabled}
-          className='shrink-0 rounded-lg border border-white/20 px-4 py-2 transition hover:border-white/40 disabled:opacity-40'
+          className='rounded-lg border border-white/20 px-4 py-2 transition hover:border-white/40 disabled:opacity-40'
         >
           Add
         </Box>
