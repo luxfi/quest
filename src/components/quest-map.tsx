@@ -1,5 +1,6 @@
 'use client'
 
+import { Box } from '@hanzo/ui'
 import React, { useEffect, useRef, useState } from 'react'
 import { loadMaps, MAPS_KEY, mapPlaceUrl, type MapsStatus } from '../lib/maps'
 import type { Stop } from '../lib/quest'
@@ -112,43 +113,43 @@ export default function QuestMap({ pins, center, onPick, className = '', height 
   }, [pins, status])
 
   if (status === 'ready') {
-    return <div ref={host} className={`w-full rounded-xl overflow-hidden ${height} ${className}`} />
+    return <Box ref={host} className={`w-full rounded-xl overflow-hidden ${height} ${className}`} />
   }
 
   return (
-    <div
+    <Box
       className={`w-full rounded-xl border border-white/15 bg-white/[0.03] p-4 ${className}`}
       role='region'
       aria-label='Stops'
     >
-      <p className='text-sm text-white/60'>
+      <Box tag="p" className='text-sm text-white/60'>
         {status === 'loading' && 'Loading the map…'}
         {status === 'no-key' && 'No map key configured — the stops and links below all work.'}
         {status === 'failed' && 'The map failed to load. The stops and links below all work.'}
-      </p>
+      </Box>
       {pins.length > 0 && (
-        <ol className='mt-3 space-y-2'>
+        <Box tag="ol" className='mt-3 flex flex-col gap-2'>
           {pins.map((p, i) => (
-            <li key={i} className='flex items-baseline gap-2 text-sm'>
-              <span className='text-white/40 tabular-nums'>{i + 1}.</span>
-              <a
+            <Box tag="li" key={i} className='flex items-baseline gap-2 text-sm'>
+              <Box tag="span" className='text-white/40 tabular-nums'>{i + 1}.</Box>
+              <Box tag="a"
                 href={mapPlaceUrl(p.lat, p.lng)}
                 target='_blank'
                 rel='noopener noreferrer'
                 className='underline underline-offset-2 hover:text-white'
               >
                 {p.found ? p.name : p.clue || 'Open in Google Maps'}
-              </a>
-            </li>
+              </Box>
+            </Box>
           ))}
-        </ol>
+        </Box>
       )}
       {onPick && (
-        <p className='mt-3 text-xs text-white/40'>
+        <Box tag="p" className='mt-3 text-xs text-white/40'>
           Without a map key you can still add stops by pasting coordinates below.
-        </p>
+        </Box>
       )}
-    </div>
+    </Box>
   )
 }
 

@@ -1,5 +1,6 @@
 'use client'
 
+import { Box } from '@hanzo/ui'
 import React, { useMemo, useState } from 'react'
 import Link from 'next/link'
 import QuestMap from '../../components/quest-map'
@@ -13,9 +14,7 @@ import {
   type Stop,
 } from '../../lib/quest'
 
-const field =
-  'w-full rounded-lg border border-white/15 bg-white/[0.03] px-3 py-2 text-white ' +
-  'placeholder:text-white/30 focus:border-white/40 focus:outline-none'
+const field = 'field'
 
 export default function CreatePage() {
   const [quest, setQuest] = useState<Quest>(emptyQuest)
@@ -78,38 +77,38 @@ export default function CreatePage() {
   }
 
   return (
-    <main className='mx-auto w-full max-w-2xl flex-1 px-6 py-10'>
-      <Link href='/' className='text-sm text-white/40 transition hover:text-white'>
+    <Box tag="main" className='mx-auto w-full max-w-2xl flex-1 px-6 py-10'>
+      <Link href='/' className='quiet'>
         ← Lux Quest
       </Link>
 
-      <h1 className='mt-6 text-3xl font-semibold'>Make a quest</h1>
+      <Box tag="h1" className='mt-6 text-3xl font-semibold'>Make a quest</Box>
 
-      <div className='mt-8 space-y-4'>
-        <label className='block'>
-          <span className='mb-1.5 block text-sm text-white/60'>Name</span>
+      <Box className='mt-8 flex flex-col gap-4'>
+        <Box tag="label" className='block'>
+          <Box tag="span" className='mb-1.5 block text-sm text-white/60'>Name</Box>
           <input
             className={field}
             value={quest.name}
             onChange={(e) => set('name', e.target.value)}
             placeholder='Mission murals'
           />
-        </label>
+        </Box>
 
-        <label className='block'>
-          <span className='mb-1.5 block text-sm text-white/60'>Where</span>
+        <Box tag="label" className='block'>
+          <Box tag="span" className='mb-1.5 block text-sm text-white/60'>Where</Box>
           <input
             className={field}
             value={quest.place}
             onChange={(e) => set('place', e.target.value)}
             placeholder='San Francisco'
           />
-        </label>
+        </Box>
 
-        <label className='block'>
-          <span className='mb-1.5 block text-sm text-white/60'>
+        <Box tag="label" className='block'>
+          <Box tag="span" className='mb-1.5 block text-sm text-white/60'>
             Prize — what they get, and how to claim it
-          </span>
+          </Box>
           <textarea
             className={field}
             rows={2}
@@ -117,44 +116,44 @@ export default function CreatePage() {
             onChange={(e) => set('prize', e.target.value)}
             placeholder='Coffee at Ritual, on me. Text me a photo of the last one.'
           />
-          <span className='mt-1.5 block text-xs text-white/40'>
+          <Box tag="span" className='mt-1.5 block text-xs text-white/40'>
             You award this yourself — Lux Quest never holds money or hands anything out.
-          </span>
-        </label>
-      </div>
+          </Box>
+        </Box>
+      </Box>
 
-      <section className='mt-10'>
-        <div className='flex items-baseline justify-between'>
-          <h2 className='text-sm uppercase tracking-widest text-white/40'>
+      <Box tag="section" className='mt-10'>
+        <Box className='flex items-baseline justify-between'>
+          <Box tag="h2" className='text-sm uppercase tracking-widest text-white/40'>
             Stops {quest.stops.length > 0 && `· ${totalPoints(quest)} pts`}
-          </h2>
+          </Box>
           {quest.stops.length >= MAX_STOPS && (
-            <span className='text-xs text-white/40'>Max {MAX_STOPS}</span>
+            <Box tag="span" className='text-xs text-white/40'>Max {MAX_STOPS}</Box>
           )}
-        </div>
+        </Box>
 
-        <p className='mt-2 text-sm text-white/50'>Tap the map to drop a stop.</p>
+        <Box tag="p" className='mt-2 text-sm text-white/50'>Tap the map to drop a stop.</Box>
 
         <QuestMap pins={quest.stops} onPick={addStop} className='mt-3' />
 
         <CoordinateEntry onAdd={addStop} disabled={quest.stops.length >= MAX_STOPS} />
 
-        <ol className='mt-5 space-y-4'>
+        <Box tag="ol" className='mt-5 flex flex-col gap-4'>
           {quest.stops.map((s, i) => (
-            <li key={i} className='rounded-xl border border-white/10 p-4'>
-              <div className='flex items-baseline justify-between'>
-                <span className='text-sm font-medium text-white/50 tabular-nums'>
+            <Box tag="li" key={i} className='rounded-xl border border-white/10 p-4'>
+              <Box className='flex items-baseline justify-between'>
+                <Box tag="span" className='text-sm font-medium text-white/50 tabular-nums'>
                   Stop {i + 1}
-                </span>
+                </Box>
                 <button
                   onClick={() => removeStop(i)}
-                  className='text-sm text-white/40 transition hover:text-white'
+                  className='quiet'
                 >
                   Remove
                 </button>
-              </div>
+              </Box>
 
-              <div className='mt-3 space-y-3'>
+              <Box className='mt-3 flex flex-col gap-3'>
                 <input
                   className={field}
                   value={s.clue}
@@ -167,9 +166,9 @@ export default function CreatePage() {
                   onChange={(e) => editStop(i, { name: e.target.value })}
                   placeholder='Answer — revealed once they get there'
                 />
-                <div className='flex gap-3'>
-                  <label className='flex-1'>
-                    <span className='mb-1 block text-xs text-white/50'>Points</span>
+                <Box className='flex gap-3'>
+                  <Box tag="label" className='flex-1'>
+                    <Box tag="span" className='mb-1 block text-xs text-white/50'>Points</Box>
                     <input
                       type='number'
                       inputMode='numeric'
@@ -180,9 +179,9 @@ export default function CreatePage() {
                         editStop(i, { points: Math.max(0, Number(e.target.value) || 0) })
                       }
                     />
-                  </label>
-                  <label className='flex-1'>
-                    <span className='mb-1 block text-xs text-white/50'>Radius (m)</span>
+                  </Box>
+                  <Box tag="label" className='flex-1'>
+                    <Box tag="span" className='mb-1 block text-xs text-white/50'>Radius (m)</Box>
                     <input
                       type='number'
                       inputMode='numeric'
@@ -193,37 +192,40 @@ export default function CreatePage() {
                         editStop(i, { radius: Math.max(10, Number(e.target.value) || DEFAULT_RADIUS) })
                       }
                     />
-                  </label>
-                </div>
-                <p className='text-xs text-white/30 tabular-nums'>
+                  </Box>
+                </Box>
+                <Box tag="p" className='text-xs text-white/30 tabular-nums'>
                   {s.lat.toFixed(5)}, {s.lng.toFixed(5)}
-                </p>
-              </div>
-            </li>
+                </Box>
+              </Box>
+            </Box>
           ))}
-        </ol>
-      </section>
+        </Box>
+      </Box>
 
-      <label className='mt-8 flex items-start gap-3'>
+      <Box tag="label" className='mt-8 flex items-start gap-3'>
+        {/* A void element has no child for Box to style through, so the one
+            offset that lines this up with the first line of its label is a
+            style rather than a class. */}
         <input
           type='checkbox'
-          className='mt-1'
+          style={{ marginTop: 4 }}
           checked={quest.hidden}
           onChange={(e) => set('hidden', e.target.checked)}
         />
         <span>
-          <span className='font-medium'>Hard mode</span>
-          <span className='block text-sm text-white/50'>
+          <Box tag="span" className='font-medium'>Hard mode</Box>
+          <Box tag="span" className='block text-sm text-white/50'>
             No pins on the map until a stop is found — the clue is all they get.
-          </span>
+          </Box>
         </span>
-      </label>
+      </Box>
 
-      <section className='mt-10 border-t border-white/10 pt-8'>
-        <h2 className='text-sm uppercase tracking-widest text-white/40'>Share it</h2>
+      <Box tag="section" className='mt-10 border-t border-white/10 pt-8'>
+        <Box tag="h2" className='text-sm uppercase tracking-widest text-white/40'>Share it</Box>
         {ready ? (
           <>
-            <div className='mt-3 flex gap-2'>
+            <Box className='mt-3 flex gap-2'>
               <input
                 readOnly
                 value={link}
@@ -231,32 +233,32 @@ export default function CreatePage() {
                 className={`${field} font-mono text-xs`}
                 aria-label='Share link'
               />
-              <button
+              <Box tag="button"
                 onClick={copy}
                 className='shrink-0 rounded-lg bg-white px-4 py-2 font-medium text-black transition hover:bg-white/90'
               >
                 {copied ? 'Copied' : 'Copy'}
-              </button>
-            </div>
-            <p className='mt-2 text-xs text-white/40'>
+              </Box>
+            </Box>
+            <Box tag="p" className='mt-2 text-xs text-white/40'>
               The whole quest is inside this link. Keep a copy — there is no other one.
-            </p>
-            <a
+            </Box>
+            <Box tag="a"
               href={link}
               target='_blank'
               rel='noopener noreferrer'
               className='mt-4 inline-block text-sm underline underline-offset-4 hover:text-white'
             >
               Open it yourself first →
-            </a>
+            </Box>
           </>
         ) : (
-          <p className='mt-3 text-sm text-white/50'>
+          <Box tag="p" className='mt-3 text-sm text-white/50'>
             {quest.stops.length === 0 ? 'Add at least one stop.' : 'Give it a name.'}
-          </p>
+          </Box>
         )}
-      </section>
-    </main>
+      </Box>
+    </Box>
   )
 }
 
@@ -291,10 +293,16 @@ function CoordinateEntry({
   }
 
   return (
-    <div className='mt-3'>
-      <div className='flex gap-2'>
+    <Box className='mt-3'>
+      <Box className='flex gap-2'>
+        {/* The same control in a monospace face — what sits in it is a url,
+            read character by character, where an l and a 1 have to differ. */}
         <input
-          className={`${field} font-mono text-sm`}
+          className={field}
+          style={{
+            fontFamily: 'var(--font-mono), ui-monospace, monospace',
+            fontSize: 'var(--text-sm)',
+          }}
           value={text}
           disabled={disabled}
           onChange={(e) => {
@@ -305,15 +313,15 @@ function CoordinateEntry({
           placeholder='or paste coordinates: 37.7749, -122.4194'
           aria-label='Add a stop by coordinates'
         />
-        <button
+        <Box tag="button"
           onClick={submit}
           disabled={disabled}
           className='shrink-0 rounded-lg border border-white/20 px-4 py-2 transition hover:border-white/40 disabled:opacity-40'
         >
           Add
-        </button>
-      </div>
-      {error && <p className='mt-1.5 text-xs text-red-400'>{error}</p>}
-    </div>
+        </Box>
+      </Box>
+      {error && <Box tag="p" className='mt-1.5 text-xs text-red-400'>{error}</Box>}
+    </Box>
   )
 }

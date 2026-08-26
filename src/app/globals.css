@@ -1,13 +1,3 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-/*
- * The repo had Tailwind configured and no stylesheet importing it, so every
- * utility class in the app was inert — the "coming soon" page rendered as
- * unstyled black text. This is that missing import.
- */
-
 :root {
   color-scheme: dark;
 }
@@ -20,7 +10,11 @@ body {
 }
 
 body {
+  background: var(--background);
+  color: var(--foreground);
   -webkit-font-smoothing: antialiased;
+  display: flex;
+  flex-direction: column;
   /* Room for the home indicator so the primary action is never under it. */
   padding-bottom: env(safe-area-inset-bottom);
 }
@@ -28,6 +22,74 @@ body {
 /* Never let a long clue or place name push the page sideways. */
 * {
   min-width: 0;
+}
+
+/* ── What the reset was doing ────────────────────────────────────────────────
+   A utility engine ships a reset with it, so removing the engine removes the
+   reset, and the browser's own defaults come back on exactly the elements that
+   had been relying on it being gone.
+
+   Only these, and only the properties actually being neutralised. A full
+   normalize would be a second styling system arriving as the first one leaves,
+   which is the thing this move is for getting rid of. */
+
+/* Every list here numbers itself in its own markup, so a marker would be a
+   second number beside the first. */
+ol,
+ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+/* Spacing is stated at each call site (`mt-6`, `gap-4`). A default margin here
+   ADDS to that rather than replacing it, so every gap would be wrong by the
+   size of a heading margin. */
+h1, h2, h3, h4, h5, h6, p, figure, blockquote {
+  margin: 0;
+}
+
+button {
+  background: transparent;
+  color: inherit;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  cursor: pointer;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+input,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+/* ── The one form control ────────────────────────────────────────────────────
+   `field` was a shared class string carrying two variants — `placeholder:` and
+   `focus:` — that reach a PSEUDO-ELEMENT and a pseudo-CLASS. Neither is a style
+   prop, so neither survives the conversion to one; they are css or they are
+   nothing. Written here once, which is also where the two of them belong. */
+.field {
+  width: 100%;
+  border-radius: var(--radius-lg, 0.75rem);
+  border: 1px solid rgb(255 255 255 / 0.15);
+  background: rgb(255 255 255 / 0.03);
+  padding: 0.5rem 0.75rem;
+  color: #fff;
+}
+
+.field::placeholder {
+  color: rgb(255 255 255 / 0.3);
+}
+
+.field:focus {
+  border-color: rgb(255 255 255 / 0.4);
+  outline: none;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -38,4 +100,40 @@ body {
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
   }
+}
+
+/* ── The two links that are not elements ─────────────────────────────────────
+   Next's <Link> is a COMPONENT, so it hands its className straight to the
+   anchor it renders — Box never sees it, and `tw` never reads it. These two
+   also carry `hover:`, which is a pseudo-class: css or nothing.
+
+   Written once because both shapes appear on three pages, which is the other
+   reason they belong here rather than repeated at each call site. */
+
+/* The primary action: a filled slab, dark text, thumb-sized on a phone. */
+.cta {
+  display: inline-block;
+  border-radius: var(--radius-lg, 0.75rem);
+  background: #fff;
+  color: #000;
+  padding: 0.75rem 1.5rem;
+  text-align: center;
+  font-weight: 500;
+  transition: background-color 0.15s;
+}
+
+.cta:hover {
+  background: rgb(255 255 255 / 0.9);
+}
+
+/* Small, dimmed, brightens when you reach for it — the way back out of a page,
+   and the "remove" beside a row. Named for the look, since both use it. */
+.quiet {
+  font-size: var(--text-sm);
+  color: rgb(255 255 255 / 0.4);
+  transition: color 0.15s;
+}
+
+.quiet:hover {
+  color: #fff;
 }

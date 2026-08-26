@@ -1,5 +1,6 @@
 'use client'
 
+import { Box } from '@hanzo/ui'
 import React, { useEffect, useMemo, useState } from 'react'
 import Link from 'next/link'
 import QuestMap from '../../components/quest-map'
@@ -110,120 +111,120 @@ export default function PlayPage() {
 
   if (quest === null) {
     return (
-      <main className='mx-auto w-full max-w-2xl flex-1 px-6 py-16'>
-        <Link href='/' className='text-sm text-white/40 transition hover:text-white'>
+      <Box tag="main" className='mx-auto w-full max-w-2xl flex-1 px-6 py-16'>
+        <Link href='/' className='quiet'>
           ← Lux Quest
         </Link>
-        <h1 className='mt-6 text-2xl font-semibold'>
+        <Box tag="h1" className='mt-6 text-2xl font-semibold'>
           {code === null ? 'Loading…' : 'This link is not a quest'}
-        </h1>
+        </Box>
         {code !== null && (
           <>
-            <p className='mt-3 text-white/60'>
+            <Box tag="p" className='mt-3 text-white/60'>
               It may have been cut short when it was shared — links break when they wrap in
               a message. Ask for the whole thing again.
-            </p>
+            </Box>
             <Link
               href='/create'
-              className='mt-6 inline-block rounded-lg bg-white px-5 py-2.5 font-medium text-black transition hover:bg-white/90'
+              className='cta mt-6'
             >
               Make your own
             </Link>
           </>
         )}
-      </main>
+      </Box>
     )
   }
 
   return (
-    <main className='mx-auto w-full max-w-2xl flex-1 px-6 py-10'>
-      <Link href='/' className='text-sm text-white/40 transition hover:text-white'>
+    <Box tag="main" className='mx-auto w-full max-w-2xl flex-1 px-6 py-10'>
+      <Link href='/' className='quiet'>
         ← Lux Quest
       </Link>
 
-      <header className='mt-6'>
-        <h1 className='text-3xl font-semibold'>{quest.name || 'Untitled quest'}</h1>
-        {quest.place && <p className='mt-1 text-white/50'>{quest.place}</p>}
-        <p className='mt-3 tabular-nums text-white/60'>
+      <Box tag="header" className='mt-6'>
+        <Box tag="h1" className='text-3xl font-semibold'>{quest.name || 'Untitled quest'}</Box>
+        {quest.place && <Box tag="p" className='mt-1 text-white/50'>{quest.place}</Box>}
+        <Box tag="p" className='mt-3 tabular-nums text-white/60'>
           {found.size} of {quest.stops.length} found · {score}/{totalPoints(quest)} pts
-        </p>
-      </header>
+        </Box>
+      </Box>
 
       {complete && (
-        <section className='mt-6 rounded-xl border border-green-500/30 bg-green-500/10 p-5'>
-          <h2 className='text-lg font-semibold'>Quest complete</h2>
-          <p className='mt-1 text-white/70'>You found every stop — {score} points.</p>
+        <Box tag="section" className='mt-6 rounded-xl border border-green-500/30 bg-green-500/10 p-5'>
+          <Box tag="h2" className='text-lg font-semibold'>Quest complete</Box>
+          <Box tag="p" className='mt-1 text-white/70'>You found every stop — {score} points.</Box>
           {quest.prize && (
             <>
-              <p className='mt-4 text-sm uppercase tracking-widest text-white/40'>The prize</p>
-              <p className='mt-1 whitespace-pre-wrap'>{quest.prize}</p>
-              <p className='mt-3 text-xs text-white/40'>
+              <Box tag="p" className='mt-4 text-sm uppercase tracking-widest text-white/40'>The prize</Box>
+              <Box tag="p" className='mt-1 whitespace-pre-wrap'>{quest.prize}</Box>
+              <Box tag="p" className='mt-3 text-xs text-white/40'>
                 Claim it with whoever sent you this. Lux Quest doesn&rsquo;t hold or hand out
                 prizes.
-              </p>
+              </Box>
             </>
           )}
-        </section>
+        </Box>
       )}
 
       <QuestMap pins={pins} className='mt-6' />
 
-      <div className='sticky bottom-4 z-10 mt-6'>
-        <button
+      <Box className='sticky bottom-4 z-10 mt-6'>
+        <Box tag="button"
           onClick={checkIn}
           disabled={checking || complete}
           className='w-full rounded-lg bg-white px-6 py-4 text-lg font-medium text-black shadow-lg transition hover:bg-white/90 disabled:opacity-50'
         >
           {complete ? 'All found' : checking ? 'Getting your location…' : "I'm here"}
-        </button>
+        </Box>
         {message && (
-          <p aria-live='polite' className='mt-2 text-center text-sm text-white/70'>
+          <Box tag="p" aria-live='polite' className='mt-2 text-center text-sm text-white/70'>
             {message}
-          </p>
+          </Box>
         )}
-      </div>
+      </Box>
 
-      <ol className='mt-8 space-y-3'>
+      <Box tag="ol" className='mt-8 flex flex-col gap-3'>
         {quest.stops.map((s, i) => {
           const got = found.has(i)
           const away = fix ? distance(fix, s) : null
           return (
-            <li
+            <Box tag="li"
               key={i}
               className={`rounded-xl border p-4 ${
                 got ? 'border-green-500/30 bg-green-500/[0.06]' : 'border-white/10'
               }`}
             >
-              <div className='flex items-baseline justify-between gap-3'>
-                <span className='text-sm tabular-nums text-white/40'>
+              <Box className='flex items-baseline justify-between gap-3'>
+                <Box tag="span" className='text-sm tabular-nums text-white/40'>
                   {String(i + 1).padStart(2, '0')}
-                </span>
-                <span className='text-sm tabular-nums text-white/40'>{s.points} pts</span>
-              </div>
-              <p className='mt-1.5 font-medium'>{got ? s.name || 'Found' : s.clue || 'No clue given'}</p>
-              {got && s.clue && <p className='mt-1 text-sm text-white/50'>{s.clue}</p>}
-              <div className='mt-2 flex items-center gap-4 text-sm'>
+                </Box>
+                <Box tag="span" className='text-sm tabular-nums text-white/40'>{s.points} pts</Box>
+              </Box>
+              <Box tag="p" className='mt-1.5 font-medium'>{got ? s.name || 'Found' : s.clue || 'No clue given'}</Box>
+              {got && s.clue && <Box tag="p" className='mt-1 text-sm text-white/50'>{s.clue}</Box>}
+              <Box className='mt-2 flex items-center gap-4 text-sm'>
                 {away !== null && !got && (
-                  <span className='tabular-nums text-white/40'>{formatDistance(away)} away</span>
+                  <Box tag="span" className='tabular-nums text-white/40'>{formatDistance(away)} away</Box>
                 )}
                 {/* Directions are given only once a stop is found, or when the
                     maker chose a guided hunt — otherwise this link is the
                     answer to the clue. */}
                 {(got || !quest.hidden) && (
-                  <a
+                  <Box tag="a"
                     href={directionsUrl(s.lat, s.lng)}
                     target='_blank'
                     rel='noopener noreferrer'
                     className='underline underline-offset-2 text-white/60 hover:text-white'
                   >
                     Directions
-                  </a>
+                  </Box>
                 )}
-              </div>
-            </li>
+              </Box>
+            </Box>
           )
         })}
-      </ol>
+      </Box>
 
       {found.size > 0 && (
         <button
@@ -238,6 +239,6 @@ export default function PlayPage() {
           Start over
         </button>
       )}
-    </main>
+    </Box>
   )
 }

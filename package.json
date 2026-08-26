@@ -16,7 +16,7 @@
   "dependencies": {
     "@hanzo/auth": "2.5.5",
     "@hanzo/commerce": "7.3.8",
-    "@hanzo/ui": "5.3.22",
+    "@hanzo/ui": "^8.5.2",
     "@luxfi/ui": "5.5.2",
     "@next/mdx": "14.1.0",
     "@splinetool/react-spline": "4.0.0",
@@ -27,9 +27,9 @@
     "mobx-react-lite": "^4.0.5",
     "next": "15.1.6",
     "next-themes": "^0.2.1",
-    "postcss-selector-parser": "^6.0.13",
     "react": "18.3.1",
-    "react-dom": "18.3.1"
+    "react-dom": "18.3.1",
+    "react-native-web": "^0.21.2"
   },
   "devDependencies": {
     "@mdx-js/loader": "^3.0.0",
@@ -40,12 +40,8 @@
     "@types/node": "22.10.6",
     "@types/react": "18.3.14",
     "@types/react-dom": "18.3.2",
-    "autoprefixer": "^10.4.14",
     "happy-dom": "^20.11.1",
     "jsdom": "^30.0.1",
-    "postcss": "^8.4.24",
-    "postcss-import": "^15.1.0",
-    "tailwindcss": "3.4.17",
     "typescript": "5.7.3",
     "vitest": "^4.1.10"
   },
