@@ -4,7 +4,7 @@ allowBuilds:
 catalog:
   '@hanzo/auth': '2.8.0'
   '@hanzo/commerce': '7.8.3'
-  '@hanzo/ui': '8.27.0'
+  '@hanzo/ui': '8.27.2'
   '@luxfi/ui': '8.3.4'
   '@mdx-js/loader': '^3.1.1'
   '@mdx-js/react': '^3.1.1'
